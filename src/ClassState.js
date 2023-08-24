@@ -5,7 +5,22 @@ class ClassState extends React.Component {
     super(props);
     this.state = {
       error: false,
+      loading: false,
     };
+  }
+
+  componentDidUpdate() {
+    console.log("Actualización");
+
+    if (this.state.loading) {
+      setTimeout(() => {
+        console.log("Haciendo la validación");
+
+        this.setState({ loading: false });
+
+        console.log("Terminando la validación");
+      }, 3000);
+    }
   }
 
   render() {
@@ -16,15 +31,10 @@ class ClassState extends React.Component {
         <p>Por favor, escribe el código de seguridad.</p>
 
         {this.state.error && <p>Error: El código es incorrecto.</p>}
+        {this.state.loading && <p>Cargando...</p>}
 
         <input placeholder="Código de seguridad" />
-        <button
-          onClick={() =>
-            this.setState((prevState) => ({
-              error: !prevState.error,
-            }))
-          }
-        >
+        <button onClick={() => this.setState({ loading: true })}>
           Comprobar
         </button>
       </div>
