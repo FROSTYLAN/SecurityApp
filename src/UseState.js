@@ -16,7 +16,9 @@ function UseState({ name }) {
       setTimeout(() => {
         console.log("Haciendo la validación");
 
-        if (value !== SECURITY_CODE) {
+        if (value === SECURITY_CODE) {
+          setError(false);
+        } else {
           setError(true);
         }
 
@@ -35,7 +37,7 @@ function UseState({ name }) {
 
       <p>Por favor, escribe el código de seguridad.</p>
 
-      {error && <p>Error: El código es incorrecto.</p>}
+      {error && !loading && <p>Error: El código es incorrecto.</p>}
       {loading && <p>Cargando...</p>}
 
       <input
@@ -47,7 +49,6 @@ function UseState({ name }) {
       />
       <button
         onClick={() => {
-          setError(false);
           setLoading(true);
         }}
       >
